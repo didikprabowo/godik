@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
 
 type Port struct {
@@ -26,8 +27,16 @@ func HttpServer() {
 
 	var address = port.Host + ":" + port.Port
 	fmt.Printf("server started at %s\n", address)
-
+	routes := RegisterRoutes()
 	server := new(http.Server)
 	server.Addr = address
-	server.ListenAndServe()
+	server.Handler = routes
+	server.WriteTimeout = time.Second * 15
+	server.ReadTimeout = time.Second * 15
+	server.IdleTimeout = time.Second * 60
+	// server run
+	err = server.ListenAndServe()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }

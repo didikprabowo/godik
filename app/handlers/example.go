@@ -1,15 +1,17 @@
 package handlers
 
 import (
-	"encoding/json"
+	templateku "gitlab.com/didik/godik/app/templates"
+
+	// "encoding/json"
 	"net/http"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	todos := []string{"apple", "grape", "banana", "melon"}
+type Bio struct {
+	Name string
+}
 
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(todos); err != nil {
-		panic(err)
-	}
+func Index(w http.ResponseWriter, r *http.Request) {
+	data := []Bio{Bio{Name: "didik"}}
+	templateku.AppTemplates(w, "hai.html", "Index", data)
 }
