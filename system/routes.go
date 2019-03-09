@@ -1,11 +1,11 @@
-package config
+package system
 
 import (
 	"github.com/gorilla/mux"
 	"gitlab.com/didik/godik/app/routes"
 )
 
-//Handle Routes
+//Handle ROutes
 func RegisterRoutes() *mux.Router {
 	RouteApp := routes.RouteApp()
 
